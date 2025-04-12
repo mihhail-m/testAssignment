@@ -1,0 +1,1 @@
+# Repository contains solution for test assignment for Test Automation Engineer role
