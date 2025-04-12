@@ -7,4 +7,4 @@ RUN mkdir -p /home/wiremock/mappings /home/wiremock/__files
 COPY src/test/resources/mappings /home/wiremock/mappings
 COPY src/test/resources/__files /home/wiremock/__files
 
-CMD ["--global-response-templating", "--extensions", "org.wiremock.RandomExtension"]
+CMD ["--global-response-templating", "--extensions", "org.wiremock.RandomExtension", "--verbose"]
