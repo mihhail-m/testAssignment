@@ -1,4 +1,4 @@
-enum ErrorStatus {
+enum HttpStatus {
     INVALID_REQUEST (422),
     NOT_FOUND (404),
     SERVER_ERROR (500),
@@ -6,7 +6,7 @@ enum ErrorStatus {
 
     private final int status;
 
-    ErrorStatus(int status) {
+    HttpStatus(int status) {
         this.status = status;
     }
 
