@@ -17,6 +17,7 @@
         <rest.assured.version>5.5.1</rest.assured.version>
         <maven.sunfire.version>3.5.3</maven.sunfire.version>
         <gmavenplus.version>4.1.1</gmavenplus.version>
+        <faker.version>2.4.3</faker.version>
     </properties>
 
     <dependencyManagement>
@@ -53,6 +54,14 @@
             <version>${rest.assured.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Fake dat gen -->
+        <dependency>
+            <groupId>net.datafaker</groupId>
+            <artifactId>datafaker</artifactId>
+            <version>${faker.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -86,7 +95,7 @@
                 <configuration>
                     <testSourceDirectory>src/test/groovy</testSourceDirectory>
                     <includes>
-                        <!-- For some reasons only works with .java files-->
+                        <!-- For some reason only works with .java files-->
                         <include>**/*Test.java</include>
                         <include>**/*Spec.java</include>
                     </includes>
