@@ -1,0 +1,14 @@
+{
+  "priority": 10,
+  "request": {
+    "method": "any",
+    "urlPattern": "^.*"
+  },
+  "response": {
+    "status": 500,
+    "bodyFileName": "500-generic-server-error.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "mappings": [
+    {
+      "priority": 1,
+      "request": {
+        "method": "GET",
+        "urlPattern": "^\/api/person/[1-6]{1}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])[0-9]{4}$"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "{{ random 'Number.randomDigitNotZero' }}",
+          "personalCode": 39608222719,
+          "country": "{{ random 'Address.countryCode' }}",
+          "firstName": "{{ random 'Name.firstName' }}",
+          "lastName": "{{ random 'Name.lastName' }}",
+          "gender": "{{ random 'Gender.types' }}",
+          "dateOfBirth": "1990-01-01",
+          "dateOfDeath": null
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "priority": 9,
+      "request": {
+        "method": "GET",
+        "urlPattern": "^\/api/person/.*"
+      },
+      "response": {
+        "status": 404,
+        "bodyFileName": "404-person-not-found-error.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/api/person",
+        "bodyPatterns": [
+          { "matchesJsonPath": "$.personalCode" },
+          { "matchesJsonPath": "$.country" },
+          { "matchesJsonPath": "$.firstName" },
+          { "matchesJsonPath": "$.lastName" },
+          { "matchesJsonPath": "$.gender" },
+          { "matchesJsonPath": "$.dateOfBirth" }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "{{ random 'Number.randomDigitNotZero' }}",
+          "personalCode": "{{request.body.personalCode}}",
+          "country": "{{request.body.country}}",
+          "firstName": "{{request.body.firstName}}",
+          "lastName": "{{request.body.lastName}}",
+          "gender": "{{request.body.gender}}",
+          "dateOfBirth": "{{request.body.dateOfBirth}}",
+          "dateOfDeath": null
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "priority": 9,
+      "request": {
+        "method": "POST",
+        "url": "/api/person"
+      },
+      "response": {
+        "status": 422,
+        "bodyFileName": "422-invalid-request-error.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  ]
+}
