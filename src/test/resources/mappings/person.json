@@ -48,11 +48,11 @@
           }
         },
         "bodyPatterns": [
-          { "matchesJsonPath": "$.personalCode" },
-          { "matchesJsonPath": "$.country" },
-          { "matchesJsonPath": "$.firstName" },
-          { "matchesJsonPath": "$.lastName" },
-          { "matchesJsonPath": "$.gender" },
+          { "matchesJsonPath": "$[?(@.personalCode =~ /[0-9]{11}/)]" },
+          { "matchesJsonPath": "$[?(@.country =~ /[a-zA-Z]{3}/)]" },
+          { "matchesJsonPath": "$[?(@.firstName =~ /[a-zA-Z]{1,20}/)]" },
+          { "matchesJsonPath": "$[?(@.lastName =~ /[a-zA-Z]{1,20}/)]" },
+          { "matchesJsonPath": "$[?(@.gender =~ /(M|F)/)]" },
           { "matchesJsonPath": "$.dateOfBirth" }
         ]
       },
