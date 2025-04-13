@@ -2,7 +2,7 @@ package models
 
 import groovy.json.JsonOutput
 import groovy.transform.builder.Builder
-import net.datafaker.Faker;
+import net.datafaker.Faker
 
 import java.time.LocalDate
 
