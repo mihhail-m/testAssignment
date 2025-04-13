@@ -1,3 +1,4 @@
+import io.restassured.RestAssured
 import io.restassured.response.Response
 
 import static io.restassured.RestAssured.*
@@ -42,7 +43,6 @@ class GetPersonSpec extends BaseSpecification {
         invalidPersonId << [
             123,
             1,
-            -1,
             79912311234, // starts with invalid number
             19913311234, // invalid month value
             19900111234,
@@ -51,6 +51,21 @@ class GetPersonSpec extends BaseSpecification {
         ]
     }
 
-    // TODO
-    def "Get 500 error status for wrong endpoint"() {}
+    def "Get 500 error status for request to invalid endpoint"() {
+        given:"GET request with invalid endpoint"
+        when: "User sends GET request"
+        RestAssured.basePath = "/person"
+        Response response = given()
+            .get("/${path}")
+        then: "User should receive 500 error"
+        expect:
+        response
+                .then()
+                .assertThat()
+                .statusCode(500)
+                .body("error", is(HttpStatus.SERVER_ERROR.name()))
+        where:
+        path << ["randomStr", -1, "-1"]
+
+    }
 }
