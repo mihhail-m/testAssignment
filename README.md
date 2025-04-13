@@ -5,6 +5,7 @@
 - Java 17+
 - Maven
 - Docker
+- **p.s** If on Windows install GNUmake or use GitBash/WSL to make use of `Makefile`
 
 ## Setup
 
@@ -20,17 +21,40 @@ git clone https://github.com/mihhail-m/testAssignment.git
 mvn install
 ```
 
-### 3. Run standalone Wiremock
+### 3. Build image 
+
+Use `make` to build, run and reload mappings.
 
 ```shell
-docker build -t wiremock-srv Dockerfile .
-docker docker run -p 8080:8080 wiremock-srv
+make build
 ```
 
-### 4. Run tests
+### 4. Run container
+
+This will run container instance on port `8080`
+
+```shell
+make run
+```
+
+### 5. Run tests
+
+To run all tests: 
 
 ```shell
 mvn test
 ```
 
-Alternatively you can navigate to your localhost with 8080 port
+To run specific test suit:
+
+```shell
+mvn test -Dtest=TestSpecFile
+```
+
+### 6. Reload mappings
+
+If mappings where updated you can hot reload them without rebuilding container.
+
+```shell
+make reload
+```
