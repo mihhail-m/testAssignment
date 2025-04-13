@@ -89,9 +89,59 @@ class PostPersonSpec extends BaseSpecification {
                         country: "LV",
                         firstName: "Misha",
                 ),
+                // Last name longer than 20 chars
+                new PersonModel(
+                        personalCode: 39608222719,
+                        firstName: "Mihhail",
+                        lastName: "bBq?N&X3y2QAFpW/3KB]P",
+                        country: "EST",
+                        gender: "M",
+                        dateOfBirth: LocalDate.of(1996, 8, 22)
+                ),
+                // First name longer than 20 chars
+                new PersonModel(
+                        personalCode: 39608222719,
+                        firstName: "bBq?N&X3y2QAFpW/3KB]P",
+                        lastName: "Mihhail",
+                        country: "EST",
+                        gender: "M",
+                        dateOfBirth: LocalDate.of(1996, 8, 22)
+                ),
+                // Personal code less than 11 chars
+                new PersonModel(
+                        personalCode: 3960822271,
+                        firstName: "Misha",
+                        lastName: "Mihhail",
+                        country: "EST",
+                        gender: "M",
+                        dateOfBirth: LocalDate.of(1996, 8, 22)
+                ),
+                // Empty field
+                new PersonModel(
+                        personalCode: 39608222719,
+                        firstName: "",
+                        lastName: "Mihhail",
+                        country: "EST",
+                        gender: "M",
+                        dateOfBirth: LocalDate.of(1996, 8, 22)
+                ),
                 // Empty object
                 new PersonModel()
         ]
+    }
+
+    def "User should get 422 error for malformed json request"() {
+        given: "Malformed JSON object"
+        when: "User sends POST request with malformed JSON"
+        String malformedJson = "{\"firstName: \"Mish\""
+        Response response = given().contentType(ContentType.JSON).body(malformedJson).post()
+        then: "User should receive 422 error"
+        expect:
+        response.then()
+                .assertThat()
+                .statusCode(HttpStatus.INVALID_REQUEST.value())
+                .body("error", is(HttpStatus.INVALID_REQUEST.name()))
+                .body("errorMessage", is("Unable to process the request."))
     }
 
     def "User should get 500 error when submitting POST request to invalid endpoint"() {

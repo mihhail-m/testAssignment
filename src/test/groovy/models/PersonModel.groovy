@@ -42,7 +42,7 @@ class PersonModel {
                 firstName: faker.name().firstName(),
                 lastName: faker.name().lastName(),
                 country: faker.country().countryCode3(),
-                gender: gender.take(1),
+                gender: gender.take(1).first(),
                 dateOfBirth: LocalDate.of(
                         faker.number().numberBetween(1900, 2025),
                         faker.number().numberBetween(1, 12),

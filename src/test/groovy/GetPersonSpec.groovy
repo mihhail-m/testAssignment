@@ -48,6 +48,7 @@ class GetPersonSpec extends BaseSpecification {
                 19900111234,
                 19912333234, // invalid day value
                 2991231123, // 3 digits for serial number
+                111111111111, // 12 digits
         ]
     }
 
@@ -65,6 +66,6 @@ class GetPersonSpec extends BaseSpecification {
                 .statusCode(500)
                 .body("error", is(HttpStatus.SERVER_ERROR.name()))
         where:
-        path << ["randomStr", -1, "-1"]
+        path << ["randomStr", -1, "-1", ""]
     }
 }
