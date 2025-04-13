@@ -42,9 +42,9 @@
       "request": {
         "method": "POST",
         "url": "/api/person",
-        "headers" : {
-          "Accept": {
-            "equalTo" : "application/json"
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
           }
         },
         "bodyPatterns": [
@@ -78,9 +78,9 @@
       "request": {
         "method": "POST",
         "url": "/api/person",
-        "headers" : {
-          "Accept": {
-            "equalTo" : "application/json"
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
           }
         }
       },
