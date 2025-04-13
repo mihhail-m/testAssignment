@@ -1,8 +1,8 @@
 enum HttpStatus {
-    INVALID_REQUEST (422),
-    NOT_FOUND (404),
-    SERVER_ERROR (500),
-    OK (200)
+    INVALID_REQUEST(422),
+    NOT_FOUND(404),
+    SERVER_ERROR(500),
+    OK(200)
 
     private final int status;
 

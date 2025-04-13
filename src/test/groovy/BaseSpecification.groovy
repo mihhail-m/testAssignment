@@ -5,6 +5,7 @@ import spock.lang.Specification
 /*
  * All common config for spec files goes here
  */
+
 abstract class BaseSpecification extends Specification {
     def setupSpec() {
         RestAssured.baseURI = "http://localhost"

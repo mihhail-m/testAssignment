@@ -1,3 +1,4 @@
+import io.restassured.RestAssured
 import io.restassured.http.ContentType
 import io.restassured.response.Response
 import models.PersonModel
@@ -29,7 +30,7 @@ class PostPersonSpec extends BaseSpecification {
         person << PersonModel.generateRandomValidPersonJsonList(5)
     }
 
-    def "User should receive error when submitting invalid input data"() {
+    def "User should receive 422 error when submitting invalid input data"() {
         given: "Invalid input data"
         when: "User sends POST request to /api/person"
         then: "User should receive 422 response with error message"
@@ -91,6 +92,34 @@ class PostPersonSpec extends BaseSpecification {
                 // Empty object
                 new PersonModel()
         ]
+    }
 
+    def "User should get 500 error when submitting POST request to invalid endpoint"() {
+        given: "Invalid endpoint"
+        when: "User sends POST request to invalid endpoint"
+        RestAssured.basePath = "/shop"
+        PersonModel person = PersonModel.generateRandomValidPerson()
+        Response response = given().contentType(ContentType.JSON).body(person.toJson()).post()
+        then: "User should receive 500 error"
+        expect:
+        response
+                .then()
+                .assertThat()
+                .statusCode(500)
+                .body("error", is(HttpStatus.SERVER_ERROR.name()))
+    }
+
+    def "User should get 500 error when submitting POST request with invalid content type"() {
+        given: "Invalid content-type value"
+        when: "User sends POST request with invalid content-type"
+        PersonModel person = PersonModel.generateRandomValidPerson()
+        Response response = given().contentType(ContentType.TEXT).body(person.toJson()).post()
+        then: "User should receive 500 error"
+        expect:
+        response
+                .then()
+                .assertThat()
+                .statusCode(500)
+                .body("error", is(HttpStatus.SERVER_ERROR.name()))
     }
 }

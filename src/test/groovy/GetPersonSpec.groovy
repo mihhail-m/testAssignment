@@ -24,9 +24,9 @@ class GetPersonSpec extends BaseSpecification {
                 .body("dateOfDeath", nullValue())
         where:
         personId << [
-            39608222719,
-            49912121111,
-            19812033333
+                39608222719,
+                49912121111,
+                19812033333
         ]
     }
 
@@ -41,22 +41,22 @@ class GetPersonSpec extends BaseSpecification {
                 .body("errorMessage", is("Person not found."))
         where:
         invalidPersonId << [
-            123,
-            1,
-            79912311234, // starts with invalid number
-            19913311234, // invalid month value
-            19900111234,
-            19912333234, // invalid day value
-            2991231123, // 3 digits for serial number
+                123,
+                1,
+                79912311234, // starts with invalid number
+                19913311234, // invalid month value
+                19900111234,
+                19912333234, // invalid day value
+                2991231123, // 3 digits for serial number
         ]
     }
 
     def "Get 500 error status for request to invalid endpoint"() {
-        given:"GET request with invalid endpoint"
+        given: "GET request with invalid endpoint"
         when: "User sends GET request"
         RestAssured.basePath = "/person"
         Response response = given()
-            .get("/${path}")
+                .get("/${path}")
         then: "User should receive 500 error"
         expect:
         response
@@ -66,6 +66,5 @@ class GetPersonSpec extends BaseSpecification {
                 .body("error", is(HttpStatus.SERVER_ERROR.name()))
         where:
         path << ["randomStr", -1, "-1"]
-
     }
 }
