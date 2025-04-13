@@ -1,3 +1,10 @@
+import io.restassured.RestAssured
 
-class BasePersonSpec {
+/*
+ * Person's endpoint specific configurations goes here.
+ */
+abstract class BasePersonSpec extends BaseSpecification {
+    def setupSpec() {
+        RestAssured.basePath += "/person"
+    }
 }

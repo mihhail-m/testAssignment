@@ -8,7 +8,7 @@ import static org.hamcrest.Matchers.*
 
 import java.time.LocalDate
 
-class PostPersonSpec extends BaseSpecification {
+class PostPersonSpec extends BasePersonSpec {
     def "User can create new person record with valid data"() {
         given: "Correct valid input data"
         when: "User sends POST request to /api/person"

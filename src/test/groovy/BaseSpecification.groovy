@@ -8,10 +8,18 @@ import spock.lang.Specification
 
 abstract class BaseSpecification extends Specification {
     def setupSpec() {
-        RestAssured.baseURI = "http://localhost"
-        RestAssured.port = 8080
-        RestAssured.basePath = "/api/person"
+        String propertiesPath = "src/test/env.properties"
+        Properties properties = new Properties()
+        File propsFile = new File(propertiesPath)
 
+        propsFile.withInputStream {
+            properties.load(it)
+        }
+
+        RestAssured.baseURI = "http://${properties.get("host")}"
+        RestAssured.port = properties.get("port").toString().toInteger()
+        RestAssured.basePath = properties.get("baseEndpoint")
+        // For debugging
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails()
     }
 }

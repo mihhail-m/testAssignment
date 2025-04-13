@@ -4,7 +4,7 @@ import io.restassured.response.Response
 import static io.restassured.RestAssured.*
 import static org.hamcrest.Matchers.*
 
-class GetPersonSpec extends BaseSpecification {
+class GetPersonSpec extends BasePersonSpec {
     def "Get a person by valid ID"() {
         given: "An existing valid person ID"
         when: "We send a GET request to retrieve the person"
