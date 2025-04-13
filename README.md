@@ -5,7 +5,7 @@
 - Java 17+
 - Maven
 - Docker
-- **p.s** If on Windows install GNUmake or use GitBash/WSL to make use of `Makefile`
+- (Optional) If on Windows install GNUmake or use GitBash/WSL to make use of `Makefile`
 
 ## Setup
 
@@ -29,12 +29,34 @@ Use `make` to build, run and reload mappings.
 make build
 ```
 
+Or use raw docker commands:
+
+```shell
+docker build -t wiremock-srv .
+```
+
 ### 4. Run container
 
 This will run container instance on port `8080`
 
 ```shell
 make run
+```
+
+Or use raw docker commands:
+
+```shell
+docker run -p 8080:8080 wiremock-srv
+```
+
+With mounted files for hot reload:
+
+```shell
+docker run \
+    -v ${pwd}/src/test/groovy/resources:/home/wiremock/mappings \
+    -v ${pwd}/src/test/groovy/resources:/home/wiremock/__files \
+    -p 8080:8080 \
+    wiremock-srv	
 ```
 
 ### 5. Run tests
@@ -57,4 +79,10 @@ If mappings where updated you can hot reload them without rebuilding container.
 
 ```shell
 make reload
+```
+
+Or just send POST request to `/reset`
+
+```shell
+curl -X POST http://localhost:8080/__admin/mappings/reset
 ```
